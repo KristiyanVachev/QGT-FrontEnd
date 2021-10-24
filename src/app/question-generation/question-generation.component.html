@@ -1,0 +1,60 @@
+<div id="wrapper"  class="jumbotron">
+        <hr />
+
+    <!-- <h2>Generate Questions</h2> -->
+
+    <div id="generateForm">
+        <textarea style="height: 240px; margin-bottom: 10px;" #text class="form-control" rows="6" placeholder="Document text ..."></textarea>
+        
+        <input style="width: 200px; height: 50px; float: left; margin-right: 10px;" #count type="number" class="form-control" placeholder="Number of questions ...">
+        <button style="width: 990px; height: 50px; float: right;" (click)="generate(text.value, count.value)" type="button" class="btn btn-primary btn-lg btn-block">Generate</button>
+    </div>
+        
+    <div style="width: 1200px;" id="questionsBox" *ngIf="questions">
+        <div class="questionBox" *ngFor="let question of questions; let i = index" class="card mb-3">
+            <h5 class="card-header">Question {{i + 1}}</h5>
+
+            <div class="card-body">
+              <h6 class="card-title"> {{question.questionText}}</h6>
+            </div>
+
+            <div class="answerBox">
+                <input type="text" value={{question.answerText}} class="form-control is-valid" id="inputValid">
+            </div>
+            
+            <div *ngFor='let distractor of question.distractors' class="answerBox">
+                <input type="text" value={{distractor}} class="form-control is-invalid" id="inputInvalid">    
+            </div>
+
+            <div class="answerBox">
+                <input type="text" class="form-control" placeholder="Add answer..." id="inputDefault">
+            </div>
+
+            <button style="width: 150px; float:right; margin: 10px;" type="button" class="btn btn-primary">Approve</button>
+
+          </div>
+    </div>
+    
+    <!-- test yourself -->
+
+    <!-- <div id="questionsBox" *ngIf="questions">
+        <div *ngFor="let question of questions; let i = index">
+                <div class="questionBox" class="card mb-3">
+                        <h5 class="card-header">Question {{i + 1}}</h5>
+            
+                        <div class="card-body">
+                          <h6 class="card-title"> {{question.questionText}}</h6>
+                        </div>
+            
+            
+                        <div *ngFor='let answer of question.answers' class="answerBox">
+                            <button (click)="checkAnswer(question, answer)" type="button" class="btn btn-primary disabled">{{answer}}</button>
+                        </div>
+            
+            
+                </div>                        
+        </div>
+
+    </div> -->
+    
+</div>
