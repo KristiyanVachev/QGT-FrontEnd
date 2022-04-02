@@ -1,6 +1,6 @@
 export class Question {
-  answerText: string;
-  questionText: string;
+  answer: string;
+  question: string;
   distractors: [];
   quality: number;
   answers:  string[];

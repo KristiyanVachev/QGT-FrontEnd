@@ -15,11 +15,11 @@
             <h5 class="card-header">Question {{i + 1}}</h5>
 
             <div class="card-body">
-              <h6 class="card-title"> {{question.questionText}}</h6>
+              <h6 class="card-title"> {{question.question}}</h6>
             </div>
 
             <div class="answerBox">
-                <input type="text" value={{question.answerText}} class="form-control is-valid" id="inputValid">
+                <input type="text" value={{question.answer}} class="form-control is-valid" id="inputValid">
             </div>
             
             <div *ngFor='let distractor of question.distractors' class="answerBox">

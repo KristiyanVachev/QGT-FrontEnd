@@ -1,5 +1,5 @@
 export class questionGenerationRequest {
-    text: string;
+    context: string;
     title: string;
     count: number;
   } 

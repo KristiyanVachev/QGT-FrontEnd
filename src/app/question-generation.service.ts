@@ -5,13 +5,15 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Question } from './_models/quesiton';  
 import { questionGenerationRequest } from './_models/questionGenerationRequest';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuestionGenerationService {
 
-  private questionGenerationUrl = 'http://localhost:9002/generate';  // URL to web api
+  private questionGenerationUrl = environment.apiUrl + '/generate';  // URL to web api
+  // private questionGenerationUrl = '/generate';  // URL to web api
   // private questionGenerationUrl = 'api/heroes';  // URL to web api
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -21,6 +23,8 @@ export class QuestionGenerationService {
 
   /** POST: add a new hero to the server */
   generate(req: questionGenerationRequest): Observable<Question[]> {
+    console.log(`environment.apiURL = ${environment.apiUrl}`);
+    console.log(`questionGenerationUrl = ${this.questionGenerationUrl}`);
     return this.http.post<Question[]>(this.questionGenerationUrl, req, this.httpOptions).pipe(
       // catchError(this.handleError<Hero>('addHero'))
     );

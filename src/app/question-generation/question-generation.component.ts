@@ -30,7 +30,7 @@ export class QuestionGenerationComponent implements OnInit {
     if (!text) { return; }
 
     let req = new questionGenerationRequest()
-    req.text = text.trim()
+    req.context = text.trim()
     req.count = count
 
     this.questions = []
@@ -38,17 +38,24 @@ export class QuestionGenerationComponent implements OnInit {
     this.questionGenerationService.generate(req)
       .subscribe(questions => {
         
-        this.questions = []
-        questions.forEach(questionJson => {
-          this.questions.push(JSON.parse(JSON.parse(JSON.stringify(questionJson))))
-          this.addAnswers()
-        });
+        this.questions = questions;
+        // console.log(`questions = ${JSON.stringify(questions)}`);
+        console.log(this.questions)
+        // this.questions = []
+        // console.log(questions)
+        // questions.forEach(questionJson => {
+        //   console.log('questionJson:', questionJson)
+        //   console.log('json' ,JSON.parse(JSON.stringify(questionJson)))
+        //   // this.questions.push(JSON.parse(JSON.parse(JSON.stringify(questionJson))))
+        //   this.questions.push(JSON.parse(JSON.stringify(questionJson)))
+        //   this.addAnswers()
+        // });
 
       });
   }
 
   checkAnswer(quesiton: Question, answer: string){
-    if (quesiton.answerText == answer){
+    if (quesiton.answer == answer){
       alert("Yeeeeeey!")
     }
     else{
@@ -64,7 +71,7 @@ export class QuestionGenerationComponent implements OnInit {
         q.answers.push(d)
       });
 
-      q.answers.push(q.answerText);
+      q.answers.push(q.answer);
 
       q.answers = this.shuffle(q.answers)
     });
