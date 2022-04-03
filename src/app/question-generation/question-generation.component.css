@@ -4,13 +4,14 @@
     margin-top: -100px;
     margin-bottom: -90px;
 
+
 }
 
 #generateForm{
     /* border: 1px solid black; */
-    width: 1200px;
-    margin: 10px;
-    display: inline-block;
+    max-width: 800px;
+    margin: auto;
+    display: flex;
     margin-bottom: 55px;
 
 }
@@ -20,8 +21,10 @@
 }
 
 #questionsBox{
-    max-width: 1200px;
-    display: inline-block;
+    max-width: 800px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
     text-align: left;
 }
 /* 
@@ -34,9 +37,8 @@
 .answerBox{
     margin-bottom: 5px;
     margin-left: 15px;
-    width: 500px;
 }
 
 .approveBtn{
-    width: 200px;
+    /* width: 200px; */
 }

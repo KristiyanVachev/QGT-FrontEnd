@@ -1,6 +1,7 @@
 body{
-    background-color: #888;
+    background-color: #f7f7f9;
     margin: 0;
+    max-width: 200px;
 }
 
 nav{
@@ -8,7 +9,6 @@ nav{
 }
 
 #demoPic{
-    background: url(../img/demo.png);
     height: 266px;
     width: 873px;
     float: left;
@@ -17,17 +17,16 @@ nav{
 }
 
 #robotPic{
-    background: url(../img/robot.png);
     height: 413px;
     width: 480px;
-    float: left;
     margin-top: 20px;
     background-size:100% 100%;
 
 }
 
 .landing{
-    height: 450px;
+    max-width: 800px;
+    margin: auto;
 }
 
 .lead{

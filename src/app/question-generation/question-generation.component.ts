@@ -17,6 +17,19 @@ export class QuestionGenerationComponent implements OnInit {
   constructor(private questionGenerationService: QuestionGenerationService) { }
 
   ngOnInit() {
+    // this.questions = [new Question(), new Question(), new Question()]
+    // this.questions[0].question = 'What group is Oxygen a member of?'
+    // this.questions[0].answer = 'Chalcogen group'
+    // this.questions[0].distractors = ['Oxygen group', 'Diatomic group']
+    
+    // this.questions[1].question = 'What is the chemical element with the symbol O and atomic number 8?'
+    // this.questions[1].answer = 'Oxygen'
+    // this.questions[1].distractors = ['Dioxygen', 'Carbon dioxide', 'Nitrogen']
+    
+    // this.questions[2].question = 'What is lalalala lalalll alalllal al llalalal lal alala  is lalalala lalalll alalllal al llalalal lal alala  is lalalala lalalll alalllal al llalalal lal alala  is lalalala lalalll alalllal al llalalal lal alala'
+    // this.questions[2].answer = 'something'
+    // this.questions[2].distractors = ['one', 'two longer text that will get a bit over the box probably maybe', 'three']
+    
     // this.getHeroes();
   }
 

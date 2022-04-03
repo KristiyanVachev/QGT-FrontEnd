@@ -1,16 +1,18 @@
-<div id="wrapper"  class="jumbotron">
-        <hr />
+<div id="wrapper" class="jumbotron">
+    <hr />
 
     <!-- <h2>Generate Questions</h2> -->
 
-    <div id="generateForm">
-        <textarea style="height: 240px; margin-bottom: 10px;" #text class="form-control" rows="6" placeholder="Document text ..."></textarea>
+    <div id="generateForm" style="flex-direction: column;">
+        <textarea #text  class="form-control" rows="6" placeholder="Document text ..."></textarea>
         
-        <input style="width: 200px; height: 50px; float: left; margin-right: 10px;" #count type="number" class="form-control" placeholder="Number of questions ...">
-        <button style="width: 990px; height: 50px; float: right;" (click)="generate(text.value, count.value)" type="button" class="btn btn-primary btn-lg btn-block">Generate</button>
+        <div class="genFormButtons"  >
+            <input style="margin-right: 10px;" #count type="number" class="form-control" placeholder="Number of questions ...">
+            <button (click)="generate(text.value, count.value)" type="button" class="btn btn-primary btn-lg btn-block">Generate</button>
+        </div>
     </div>
         
-    <div style="width: 1200px;" id="questionsBox" *ngIf="questions">
+    <div id="questionsBox" *ngIf="questions">
         <div class="questionBox" *ngFor="let question of questions; let i = index" class="card mb-3">
             <h5 class="card-header">Question {{i + 1}}</h5>
 
@@ -30,7 +32,7 @@
                 <input type="text" class="form-control" placeholder="Add answer..." id="inputDefault">
             </div>
 
-            <button style="width: 150px; float:right; margin: 10px;" type="button" class="btn btn-primary">Approve</button>
+            <button type="button" class="btn btn-primary">Approve</button>
 
           </div>
     </div>
