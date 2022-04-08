@@ -11,31 +11,42 @@
             <button (click)="generate(text.value, count.value)" type="button" class="btn btn-primary btn-lg btn-block">Generate</button>
         </div>
     </div>
-        
+
+    <div *ngIf="spinnerOn" class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+
     <div id="questionsBox" *ngIf="questions">
         <div class="questionBox" *ngFor="let question of questions; let i = index" class="card mb-3">
-            <h5 class="card-header">Question {{i + 1}}</h5>
+            <div style="display: flex; flex-direction: row;">
+                <h5 class="card-header" style="flex-grow: 1;">Question {{i + 1}}</h5>
+                <button (click)="removeQuestion(i)" type="button" class="btn btn-outline-danger">Reject</button>   
+            </div>
+ 
 
             <div class="card-body">
-              <h6 class="card-title"> {{question.question}}</h6>
+              <input type="text" value={{question.question}} class="form-control" style="font-size: large;">
+
             </div>
 
             <div class="answerBox">
                 <input type="text" value={{question.answer}} class="form-control is-valid" id="inputValid">
             </div>
             
-            <div *ngFor='let distractor of question.distractors' class="answerBox">
-                <input type="text" value={{distractor}} class="form-control is-invalid" id="inputInvalid">    
+            <div *ngFor='let distractor of question.distractors; let indexOfelement=index' class="answerBox" style="display: flex; flex-direction: row;">
+                <input type="text" value={{distractor}} class="form-control is-invalid" id="inputInvalid">
+                <button (click)="removeDistractor(question, indexOfelement)" type="button" class="btn btn-light">Reject</button>    
             </div>
 
-            <div class="answerBox">
-                <input type="text" class="form-control" placeholder="Add answer..." id="inputDefault">
-            </div>
-
-            <button type="button" class="btn btn-primary">Approve</button>
+            <button (click)="addIncorrect(question)" type="button" class="btn btn-light">Add distractor</button>
 
           </div>
+
+        <div *ngIf="questions && questions.length > 0">
+            <button (click)="export()" type="button" class="btn btn-outline-success btn-lg btn-block">Export</button>
+        </div>
     </div>
+
     
     <!-- test yourself -->
 

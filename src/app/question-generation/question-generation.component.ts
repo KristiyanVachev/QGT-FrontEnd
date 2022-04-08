@@ -13,22 +13,23 @@ import { JsonPipe } from '@angular/common';
 export class QuestionGenerationComponent implements OnInit {
 
   questions: Question[];
+  spinnerOn = false;
 
   constructor(private questionGenerationService: QuestionGenerationService) { }
 
   ngOnInit() {
-    // this.questions = [new Question(), new Question(), new Question()]
-    // this.questions[0].question = 'What group is Oxygen a member of?'
-    // this.questions[0].answer = 'Chalcogen group'
-    // this.questions[0].distractors = ['Oxygen group', 'Diatomic group']
+    this.questions = [new Question(), new Question(), new Question()]
+    this.questions[0].question = 'What group is Oxygen a member of?'
+    this.questions[0].answer = 'Chalcogen group'
+    this.questions[0].distractors = ['Oxygen group', 'Diatomic group']
     
-    // this.questions[1].question = 'What is the chemical element with the symbol O and atomic number 8?'
-    // this.questions[1].answer = 'Oxygen'
-    // this.questions[1].distractors = ['Dioxygen', 'Carbon dioxide', 'Nitrogen']
+    this.questions[1].question = 'What is the chemical element with the symbol O and atomic number 8?'
+    this.questions[1].answer = 'Oxygen'
+    this.questions[1].distractors = ['Dioxygen', 'Carbon dioxide', 'Nitrogen']
     
-    // this.questions[2].question = 'What is lalalala lalalll alalllal al llalalal lal alala  is lalalala lalalll alalllal al llalalal lal alala  is lalalala lalalll alalllal al llalalal lal alala  is lalalala lalalll alalllal al llalalal lal alala'
-    // this.questions[2].answer = 'something'
-    // this.questions[2].distractors = ['one', 'two longer text that will get a bit over the box probably maybe', 'three']
+    this.questions[2].question = 'What is lalalala lalalll alalllal al llalalal lal alala  is lalalala lalalll alalllal al llalalal lal alala  is lalalala lalalll alalllal al llalalal lal alala  is lalalala lalalll alalllal al llalalal lal alala'
+    this.questions[2].answer = 'something'
+    this.questions[2].distractors = ['one', 'two longer text that will get a bit over the box probably maybe', 'three']
     
     // this.getHeroes();
   }
@@ -42,6 +43,8 @@ export class QuestionGenerationComponent implements OnInit {
 
     if (!text) { return; }
 
+    this.spinnerOn = true
+
     let req = new questionGenerationRequest()
     req.context = text.trim()
     req.count = count
@@ -50,7 +53,7 @@ export class QuestionGenerationComponent implements OnInit {
 
     this.questionGenerationService.generate(req)
       .subscribe(questions => {
-        
+        this.spinnerOn = false
         this.questions = questions;
         // console.log(`questions = ${JSON.stringify(questions)}`);
         console.log(this.questions)
@@ -67,14 +70,30 @@ export class QuestionGenerationComponent implements OnInit {
       });
   }
 
-  checkAnswer(quesiton: Question, answer: string){
-    if (quesiton.answer == answer){
-      alert("Yeeeeeey!")
-    }
-    else{
-      alert("Wrooonong!")
-    }
+  addIncorrect(quesiton: Question){
+    quesiton.distractors.push('')
   }
+
+  removeDistractor(quesiton: Question, indexOfDistractor: number){
+    quesiton.distractors.splice(indexOfDistractor, 1)
+  }
+
+  removeQuestion(questionIndex: number){
+    this.questions.splice(questionIndex, 1)
+  }
+
+  export(){
+
+  }
+
+  // checkAnswer(quesiton: Question, answer: string){
+  //   if (quesiton.answer == answer){
+  //     alert("Yeeeeeey!")
+  //   }
+  //   else{
+  //     alert("Wrooonong!")
+  //   }
+  // }
 
   addAnswers(){
     this.questions.forEach(q => {
