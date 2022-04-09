@@ -23,8 +23,6 @@ export class QuestionGenerationService {
 
   /** POST: add a new hero to the server */
   generate(req: questionGenerationRequest): Observable<Question[]> {
-    console.log(`environment.apiURL = ${environment.apiUrl}`);
-    console.log(`questionGenerationUrl = ${this.questionGenerationUrl}`);
     return this.http.post<Question[]>(this.questionGenerationUrl, req, this.httpOptions).pipe(
       // catchError(this.handleError<Hero>('addHero'))
     );

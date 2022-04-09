@@ -18,20 +18,19 @@ export class QuestionGenerationComponent implements OnInit {
   constructor(private questionGenerationService: QuestionGenerationService) { }
 
   ngOnInit() {
-    this.questions = [new Question(), new Question(), new Question()]
-    this.questions[0].question = 'What group is Oxygen a member of?'
-    this.questions[0].answer = 'Chalcogen group'
-    this.questions[0].distractors = ['Oxygen group', 'Diatomic group']
+    // this.questions = [new Question(), new Question(), new Question()]
+    // this.questions[0].question = 'What group is Oxygen a member of?'
+    // this.questions[0].answer = 'Chalcogen group'
+    // this.questions[0].distractors = ['Oxygen group', 'Diatomic group']
     
-    this.questions[1].question = 'What is the chemical element with the symbol O and atomic number 8?'
-    this.questions[1].answer = 'Oxygen'
-    this.questions[1].distractors = ['Dioxygen', 'Carbon dioxide', 'Nitrogen']
+    // this.questions[1].question = 'What is the chemical element with the symbol O and atomic number 8?'
+    // this.questions[1].answer = 'Oxygen'
+    // this.questions[1].distractors = ['Dioxygen', 'Carbon dioxide', 'Nitrogen']
     
-    this.questions[2].question = 'What is lalalala lalalll alalllal al llalalal lal alala  is lalalala lalalll alalllal al llalalal lal alala  is lalalala lalalll alalllal al llalalal lal alala  is lalalala lalalll alalllal al llalalal lal alala'
-    this.questions[2].answer = 'something'
-    this.questions[2].distractors = ['one', 'two longer text that will get a bit over the box probably maybe', 'three']
+    // this.questions[2].question = 'What is lalalala lalalll alalllal al llalalal lal alala  is lalalala lalalll alalllal al llalalal lal alala  is lalalala lalalll alalllal al llalalal lal alala  is lalalala lalalll alalllal al llalalal lal alala'
+    // this.questions[2].answer = 'something'
+    // this.questions[2].distractors = ['one', 'two longer text that will get a bit over the box probably maybe', 'three']
     
-    // this.getHeroes();
   }
 
   // getQuestions(): void {
@@ -41,7 +40,23 @@ export class QuestionGenerationComponent implements OnInit {
 
   generate(text: string, count: number): void {
 
-    if (!text) { return; }
+    let isValid = true
+    let countTextBox = (document.getElementById('invalidMessageBox') as HTMLInputElement)
+    countTextBox.textContent = ""
+
+    if (!text || text.length > 5000 || text.length < 1) {
+      countTextBox.textContent += "Document text must not be empty or over 5000 characters. "
+      isValid = false;
+    }
+  
+    if (count < 1 || count > 5){
+      countTextBox.textContent += "Number of questions must be between 0 and 5."
+      isValid = false;
+    }
+  
+    if (!isValid){
+      return;
+    }
 
     this.spinnerOn = true
 
@@ -55,24 +70,16 @@ export class QuestionGenerationComponent implements OnInit {
       .subscribe(questions => {
         this.spinnerOn = false
         this.questions = questions;
-        // console.log(`questions = ${JSON.stringify(questions)}`);
-        console.log(this.questions)
-        // this.questions = []
-        // console.log(questions)
-        // questions.forEach(questionJson => {
-        //   console.log('questionJson:', questionJson)
-        //   console.log('json' ,JSON.parse(JSON.stringify(questionJson)))
-        //   // this.questions.push(JSON.parse(JSON.parse(JSON.stringify(questionJson))))
-        //   this.questions.push(JSON.parse(JSON.stringify(questionJson)))
-        //   this.addAnswers()
-        // });
-
       });
   }
 
   addIncorrect(quesitonIndex: string){
 
     let newDistractorTextBox = document.getElementById(quesitonIndex) as HTMLInputElement
+
+    if (!newDistractorTextBox.value){
+      return;
+    }
 
     this.questions[quesitonIndex].distractors.push(newDistractorTextBox.value)
 

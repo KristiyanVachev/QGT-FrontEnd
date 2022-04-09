@@ -4,13 +4,15 @@
     <!-- <h2>Generate Questions</h2> -->
 
     <div id="generateForm" style="flex-direction: column;">
+        <label id="invalidMessageBox" style="color: #ff4444;"></label>
         <textarea #text  class="form-control" rows="6" placeholder="Document text ..."></textarea>
         
-        <div class="genFormButtons"  >
-            <input style="margin-right: 10px;" #count type="number" class="form-control" placeholder="Number of questions ...">
+        <div class="genFormButtons"  style="display: flex; flex-direction: column;">
+            <input id="documentTextBox" style="margin-right: 10px;" #count type="number" min="1" max="5" class="form-control" placeholder="Number of questions ...">
             <!-- <input style="margin-right: 10px;" #code type="text" class="form-control" placeholder="Insert code demo access code (ask for)..."> -->
-            <button (click)="generate(text.value, count.value)" type="button" class="btn btn-primary btn-lg btn-block">Generate</button>
+            <button id="numberOfQuestionsTextBox" (click)="generate(text.value, count.value)" type="button" class="btn btn-primary btn-lg btn-block">Generate</button>
         </div>
+        <label style="font-style: italic; font-size: small; text-align: right;">* Limited to 5000 characters and 5 questions due to ECIR2022 live demo traffic.</label>
     </div>
 
     <div *ngIf="spinnerOn" class="spinner-border text-primary" role="status">
@@ -36,21 +38,21 @@
             
             <div *ngFor='let distractor of question.distractors; let indexOfelement=index' class="answerBox" style="display: flex; flex-direction: row;">
                 <input type="text" value={{distractor}} class="form-control is-invalid" id="inputInvalid">
-                <button (click)="removeDistractor(question, indexOfelement)" type="button" class="btn btn-light" style="width: 80px; margin-left: 5px;">Reject</button>    
+                <button (click)="removeDistractor(question, indexOfelement)" type="button" class="btn btn-light" style="width: 100px; margin-left: 5px;">Reject</button>    
             </div>
             
             <div class="answerBox" style="display: flex; flex-direction: row;">
                 
-                <input type="text" class="form-control" id="{{i}}" placeholder="new distractor">
-                <button (click)="addIncorrect(i)" type="button" class="btn btn-light" style="width: 80px; margin-left: 5px;">Add</button>
+                <input type="text" class="form-control" id="{{i}}" placeholder="new distractor ...">
+                <button (click)="addIncorrect(i)" type="button" class="btn btn-light" style="width: 100px; margin-left: 5px;">Add</button>
             </div>
 
 
           </div>
 
-        <div *ngIf="questions && questions.length > 0">
+        <!-- <div *ngIf="questions && questions.length > 0">
             <button (click)="export()" type="button" class="btn btn-outline-success btn-lg btn-block">Export</button>
-        </div>
+        </div> -->
     </div>
 
     
