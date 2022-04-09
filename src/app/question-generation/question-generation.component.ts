@@ -70,8 +70,13 @@ export class QuestionGenerationComponent implements OnInit {
       });
   }
 
-  addIncorrect(quesiton: Question){
-    quesiton.distractors.push('')
+  addIncorrect(quesitonIndex: string){
+
+    let newDistractorTextBox = document.getElementById(quesitonIndex) as HTMLInputElement
+
+    this.questions[quesitonIndex].distractors.push(newDistractorTextBox.value)
+
+    newDistractorTextBox.value = ''
   }
 
   removeDistractor(quesiton: Question, indexOfDistractor: number){

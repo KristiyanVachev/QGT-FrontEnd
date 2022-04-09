@@ -8,6 +8,7 @@
         
         <div class="genFormButtons"  >
             <input style="margin-right: 10px;" #count type="number" class="form-control" placeholder="Number of questions ...">
+            <!-- <input style="margin-right: 10px;" #code type="text" class="form-control" placeholder="Insert code demo access code (ask for)..."> -->
             <button (click)="generate(text.value, count.value)" type="button" class="btn btn-primary btn-lg btn-block">Generate</button>
         </div>
     </div>
@@ -35,10 +36,15 @@
             
             <div *ngFor='let distractor of question.distractors; let indexOfelement=index' class="answerBox" style="display: flex; flex-direction: row;">
                 <input type="text" value={{distractor}} class="form-control is-invalid" id="inputInvalid">
-                <button (click)="removeDistractor(question, indexOfelement)" type="button" class="btn btn-light">Reject</button>    
+                <button (click)="removeDistractor(question, indexOfelement)" type="button" class="btn btn-light" style="width: 80px; margin-left: 5px;">Reject</button>    
+            </div>
+            
+            <div class="answerBox" style="display: flex; flex-direction: row;">
+                
+                <input type="text" class="form-control" id="{{i}}" placeholder="new distractor">
+                <button (click)="addIncorrect(i)" type="button" class="btn btn-light" style="width: 80px; margin-left: 5px;">Add</button>
             </div>
 
-            <button (click)="addIncorrect(question)" type="button" class="btn btn-light">Add distractor</button>
 
           </div>
 
