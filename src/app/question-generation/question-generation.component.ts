@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Question } from '../_models/quesiton'
 import { QuestionGenerationService } from '../question-generation.service';
 import { questionGenerationRequest } from '../_models/questionGenerationRequest';
-import { JsonPipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-question-generation',
@@ -38,19 +38,24 @@ export class QuestionGenerationComponent implements OnInit {
   //   .subscribe(questions => this.questions = questions);
   // }
 
-  generate(text: string, count: number): void {
+  generate(text: string, count: number, accessCode: string): void {
 
     let isValid = true
     let countTextBox = (document.getElementById('invalidMessageBox') as HTMLInputElement)
     countTextBox.textContent = ""
 
     if (!text || text.length > 5000 || text.length < 1) {
-      countTextBox.textContent += "Document text must not be empty or over 5000 characters. "
+      countTextBox.textContent += "Document text must not be empty or over 1000 characters. "
       isValid = false;
     }
   
-    if (count < 1 || count > 5){
-      countTextBox.textContent += "Number of questions must be between 0 and 5."
+    if (count < 1 || count > 3){
+      countTextBox.textContent += "Number of questions must be between 1 and 3."
+      isValid = false;
+    }
+
+    if (accessCode == ''){
+      countTextBox.textContent += "You must insert beta access code."
       isValid = false;
     }
   
@@ -63,13 +68,35 @@ export class QuestionGenerationComponent implements OnInit {
     let req = new questionGenerationRequest()
     req.context = text.trim()
     req.count = count
+    req.accessCode = accessCode
 
     this.questions = []
+
+    let serverResponseTextBox = (document.getElementById('serverResponseBox') as HTMLInputElement)
+    serverResponseTextBox.textContent = ""
 
     this.questionGenerationService.generate(req)
       .subscribe(questions => {
         this.spinnerOn = false
         this.questions = questions;
+      }, err => {
+        this.spinnerOn = false;
+
+        switch(err.status) { 
+          case 401: { 
+            serverResponseTextBox.textContent += "Invalid access code."
+            break; 
+          } 
+          case 503: { 
+            serverResponseTextBox.textContent += "The AI models are loading, try again in 30 seconds."
+            break; 
+          } 
+          default: { 
+            serverResponseTextBox.textContent += "Server error, please contact support." 
+             break; 
+          } 
+       }
+
       });
   }
 

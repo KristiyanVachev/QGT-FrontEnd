@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 export class QuestionGenerationService {
 
   private questionGenerationUrl = environment.apiUrl + '/generate';  // URL to web api
+  // private questionGenerationUrl = 'http://localhost:9002' + '/generate';  // URL to web api
   // private questionGenerationUrl = '/generate';  // URL to web api
   // private questionGenerationUrl = 'api/heroes';  // URL to web api
   httpOptions = {

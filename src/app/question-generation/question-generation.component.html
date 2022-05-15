@@ -9,11 +9,13 @@
         
         <div class="genFormButtons"  style="display: flex; flex-direction: column;">
             <input id="documentTextBox" style="margin-right: 10px;" #count type="number" min="1" max="5" class="form-control" placeholder="Number of questions ...">
-            <!-- <input style="margin-right: 10px;" #code type="text" class="form-control" placeholder="Insert code demo access code (ask for)..."> -->
-            <button id="numberOfQuestionsTextBox" (click)="generate(text.value, count.value)" type="button" class="btn btn-primary btn-lg btn-block">Generate</button>
+            <input style="margin-right: 10px;" #accessCode type="text" class="form-control" placeholder="Demo access code">
+            <button id="numberOfQuestionsTextBox" (click)="generate(text.value, count.value, accessCode.value)" type="button" class="btn btn-primary btn-lg btn-block">Generate</button>
         </div>
-        <label style="font-style: italic; font-size: small; text-align: right;">* Limited to 5000 characters and 5 questions due to ECIR2022 live demo traffic.</label>
+        <label style="font-style: italic; font-size: small; text-align: right;">* Beta version limited to 1000 characters and 3 questions.</label>
     </div>
+
+    <label id="serverResponseBox"></label>
 
     <div *ngIf="spinnerOn" class="spinner-border text-primary" role="status">
         <span class="sr-only">Loading...</span>
